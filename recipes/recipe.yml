@@ -11,8 +11,9 @@ modules:
       - source: system
         destination: / 
 
-  - type: nvidia
-    version: 580
+  - type: akmods
+    base: main
+    nvidia-driver: nvidia
 
   - type: default-flatpaks
     notify: true
