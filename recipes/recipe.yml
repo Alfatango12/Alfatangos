@@ -1,13 +1,13 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
-name: template
+name: Alfatangos
 # description will be included in the image's metadata
 description: This is my personal OS image.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 42 # latest is also supported if you want new updates ASAP
+base-image: ghcr.io/ublue-os/bluefin:stable
+#image-version: 42 # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
@@ -18,13 +18,24 @@ modules:
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
   - type: dnf
-    repos:
-      copr:
-        - atim/starship
+     repos:
+       nonfree: rpmfusion
+       cleanup: true
     install:
       packages:
-        - micro
-        - starship
+        - akmod-nvidia-580xx
+        - xorg-x11-drv-nvidia-580xx
+        - xorg-x11-drv-nvidia-580xx-libs
+        - xorg-x11-drv-nvidia-580xx-cuda
+        - xorg-x11-drv-nvidia-580xx-cuda-libs
+        - xorg-x11-drv-nvidia-580xx-libs.i686
+        - libva-nvidia-driver
+        - libva-nvidia-driver.i686
+        - libva-utils
+        - vdpauinfo
+        - vulkan
+        - vulkanloader
+
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
@@ -39,7 +50,18 @@ modules:
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
           - org.mozilla.firefox
-          - org.gnome.Loupe
+          # - org.gnome.Loupe
       - scope: user # Also add Flathub user repo, but no user packages
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
+
+- type: containerfile
+    snippets:
+      - |
+        # Inietta le variabili d'ambiente in /etc/environment dentro l'immagine OCI
+        echo "MOZ_DISABLE_RDD_SANDBOX=1" >> /etc/environment
+        echo "LIBVA_DRIVER_NAME=nvidia" >> /etc/environment
+        echo "__GLX_VENDOR_LIBRARY_NAME=nvidia" >> /etc/environment
+        
+        # Opzionale: Forza Firefox a usare Wayland nativamente se usi Wayland
+        echo "MOZ_ENABLE_WAYLAND=1" >> /etc/environment
