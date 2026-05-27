@@ -13,7 +13,6 @@ modules:
       - source: system
         destination: / 
 
-  # Rimuoviamo Firefox usando rpm-ostree, isolandolo dai driver grafico
   #- type: rpm-ostree
   #  remove:
   #    - firefox
@@ -21,6 +20,9 @@ modules:
 
   # Modulo DNF pulito solo per installare i driver
   - type: dnf
+    repos:
+      - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-%__fedora.noarch.rpm
+      - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-%__fedora.noarch.rpm
     install:
       packages:
         # Driver Core Nvidia Legacy 580xx
@@ -40,7 +42,7 @@ modules:
         - libva-utils
         - vdpauinfo
         
-        # Supporto Vulkan (Rimosso il pacchetto errato "vulkan")
+        # Supporto Vulkan
         - vulkan-loader
         - vulkan-tools
 
