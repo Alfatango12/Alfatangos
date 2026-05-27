@@ -13,7 +13,6 @@ modules:
 
   - type: rpm-ostree
     install:
-      # Specifichiamo i driver legacy 580xx
       - akmod-nvidia-580xx
       - xorg-x11-drv-nvidia-580xx
       - xorg-x11-drv-nvidia-580xx-libs
@@ -28,10 +27,8 @@ modules:
       - vulkan-loader.i686
       - vulkan-tools
     remove:
-      # Rimuove i driver più recenti preinstallati per evitare conflitti di file
-      - nvidia-driver
+      # Teniamo solo il pacchetto che creava i conflitti di file nei log precedenti
       - nvidia-driver-common
-      - xorg-x11-drv-nvidia
 
   - type: default-flatpaks
     configurations:
