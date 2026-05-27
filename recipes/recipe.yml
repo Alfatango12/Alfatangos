@@ -12,15 +12,15 @@ modules:
         destination: / 
 
   - type: nvidia
-  version: 580
+    version: 580
 
   - type: default-flatpaks
-    configurations:
-      - notify: true 
-        scope: system
-        install: 
-          - org.mozilla.firefox
-      - scope: user 
+    notify: true
+    system:
+      install:
+        - org.mozilla.firefox
+    user:
+      install: []
 
   - type: signing 
 
