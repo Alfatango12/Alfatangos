@@ -36,7 +36,7 @@ modules:
         - vulkan
         - vulkan-loader
         - vulkan-tools
-        - vulkan-loader-i686
+        - vulkan-loader.i686
 
     remove:
       packages:
