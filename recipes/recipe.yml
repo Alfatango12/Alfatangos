@@ -61,12 +61,12 @@ modules:
     snippets:
       - |
         # Inietta le variabili d'ambiente in /etc/environment dentro l'immagine OCI
-        echo "MOZ_DISABLE_RDD_SANDBOX=1" >> /etc/environment
-        echo "LIBVA_DRIVER_NAME=nvidia" >> /etc/environment
-        echo "__GLX_VENDOR_LIBRARY_NAME=nvidia" >> /etc/environment
+        RUN echo "MOZ_DISABLE_RDD_SANDBOX=1" >> /etc/environment
+        RUN echo "LIBVA_DRIVER_NAME=nvidia" >> /etc/environment
+        RUN echo "__GLX_VENDOR_LIBRARY_NAME=nvidia" >> /etc/environment
         
         # Opzionale: Forza Firefox a usare Wayland nativamente se usi Wayland
-        echo "MOZ_ENABLE_WAYLAND=1" >> /etc/environment
+        RUN echo "MOZ_ENABLE_WAYLAND=1" >> /etc/environment
   - type: kargs
     kargs:
       - rd.driver.blacklist=nouveau
