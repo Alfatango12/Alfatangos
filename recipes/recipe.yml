@@ -26,10 +26,6 @@ modules:
       - vulkan-loader
       - vulkan-loader.i686
       - vulkan-tools
-    remove:
-      # Teniamo solo il pacchetto che creava i conflitti di file nei log precedenti
-      - nvidia-driver-common
-
   - type: default-flatpaks
     configurations:
       - notify: true 
