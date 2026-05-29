@@ -51,7 +51,7 @@ modules:
   - type: signing 
 
   - type: containerfile
-      snippets:
+    snippets:
       - |
         RUN echo "MOZ_DISABLE_RDD_SANDBOX=1" >> /etc/environment
         RUN echo "LIBVA_DRIVER_NAME=nvidia" >> /etc/environment
